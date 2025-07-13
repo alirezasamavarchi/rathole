@@ -20,6 +20,7 @@ use tokio::net::{TcpStream, UdpSocket};
 use tokio::sync::{broadcast, mpsc, oneshot};
 use tokio::time::{self, Duration, Instant};
 use tracing::{debug, error, info, instrument, trace, warn, Instrument, Span};
+use backoff::backoff::Backoff;
 
 #[cfg(feature = "quic")]
 use crate::transport::QuicTransport;
