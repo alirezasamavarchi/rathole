@@ -90,6 +90,12 @@ mod noise;
 #[cfg(feature = "noise")]
 pub use noise::NoiseTransport;
 
+#[cfg(feature = "quic")]
+mod quic;
+#[cfg(feature = "quic")]
+pub use quic::QuicTransport;
+
+
 #[cfg(any(feature = "websocket-native-tls", feature = "websocket-rustls"))]
 mod websocket;
 #[cfg(any(feature = "websocket-native-tls", feature = "websocket-rustls"))]
