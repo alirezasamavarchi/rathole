@@ -19,7 +19,7 @@ use tokio::io::{self, copy_bidirectional, AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream, UdpSocket};
 use tokio::sync::{broadcast, mpsc};
 use tokio::time;
-use tracing::{debug, error, info, info_span, warn, Instrument, Span};
+use tracing::{debug, error, info, info_span, warn, instrument, Span};
 
 #[cfg(feature = "noise")]
 use crate::transport::NoiseTransport;
