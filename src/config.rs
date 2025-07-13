@@ -343,7 +343,7 @@ pub struct Config {
     pub client: Option<ClientConfig>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone, Default)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct TransportConfig {
     #[serde(rename = "type")]
