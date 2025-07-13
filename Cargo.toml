@@ -20,6 +20,7 @@ default = [
     "websocket-native-tls",
     "hot-reload",
 ]
+rustls = ["dep:rustls"]
 
 # Run as a server
 server = []
