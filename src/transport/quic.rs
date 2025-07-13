@@ -16,6 +16,7 @@ use tokio::net::{ToSocketAddrs, UdpSocket};
 use tokio::sync::Mutex;
 use tokio_native_tls::native_tls::Certificate;
 use rustls::pki_types::{CertificateDer, PrivateKeyDer};
+use quinn::{ClientConfig, Endpoint, ServerConfig, TransportConfig};
 
 pub const ALPN_QUIC_TUNNEL: &[&[u8]] = &[b"qt"];
 pub const DEFAULT_MAX_IDLE_TIMEOUT_SECS: u64 = 10;
@@ -148,6 +149,14 @@ impl Transport for QuicTransport {
         })
     }
 
+
+    async fn new(config: &crate::config::TransportConfig) -> Result<Self> {
+    let mut client_crypto = rustls::ClientConfig::builder()
+        .dangerous()
+        .with_custom_certificate_verifier(Arc::new(NoCertificateVerification))
+        .with_no_client_auth();
+    // ...
+}
     /// Applies socket options to the QUIC stream (currently a no-op as QUIC does not use TCP).
     fn hint(_conn: &Self::Stream, _opts: SocketOpts) {
         // QUIC does not use TCP socket options, so this is a no-op.
