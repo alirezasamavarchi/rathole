@@ -62,6 +62,8 @@ async fn tcp() -> Result<()> {
 
     #[cfg(feature = "noise")]
     test("tests/for_tcp/noise_transport.toml", Type::Tcp).await?;
+    
+    test("tests/for_tcp/quic_transport.toml", Type::Tcp).await?;
 
     #[cfg(any(feature = "websocket-native-tls", feature = "websocket-rustls"))]
     test("tests/for_tcp/websocket_transport.toml", Type::Tcp).await?;
@@ -99,6 +101,8 @@ async fn udp() -> Result<()> {
 
     #[cfg(feature = "noise")]
     test("tests/for_udp/noise_transport.toml", Type::Udp).await?;
+    
+    test("tests/for_udp/quic_transport.toml", Type::Udp).await?;
 
     #[cfg(any(feature = "websocket-native-tls", feature = "websocket-rustls"))]
     test("tests/for_udp/websocket_transport.toml", Type::Udp).await?;
