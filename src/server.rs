@@ -297,7 +297,6 @@ async fn do_control_channel_handshake<T: 'static + Transport>(
             .map_err(|e| anyhow!("Failed to serialize AuthFailed: {}", e))?;
         write_and_flush(&mut conn, &ack_data)
             .await
-წ
             .with_context(|| "Failed to send auth failed response")?;
         bail!(
             "Authentication failed for service {}: expected {}, got {}",
