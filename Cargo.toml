@@ -30,7 +30,7 @@ client = []
 
 # TLS support
 native-tls = ["native_tls"]
-rustls = ["rustls"]
+rustls = ["dep:rustls"]
 
 # Noise support
 noise = ["snowstorm", "base64"]
