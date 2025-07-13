@@ -29,7 +29,7 @@ server = []
 client = []
 
 # TLS support
-native-tls = ["native_tls"]
+native-tls = ["dep:native_tls"]
 rustls = ["dep:rustls"]
 
 # Noise support
