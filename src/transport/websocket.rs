@@ -194,10 +194,12 @@ impl Transport for WebsocketTransport {
             .as_ref()
             .ok_or_else(|| anyhow!("Missing websocket config"))?;
 
-        let conf = WebSocketConfig {
-            write_buffer_size: 0,
-            ..WebSocketConfig::default()
-        };
+let conf = tokio_tungstenite::tungstenite::protocol::WebSocketConfig {
+    max_write_buffer_size: 0,
+    max_message_size: None,
+    max_frame_size: None,
+    accept_unmasked_frames: false,
+};
         let sub = match wsconfig.tls {
             true => SubTransport::Secure(TlsTransport::new(config)?),
             false => SubTransport::Insecure(TcpTransport::new(config)?),
