@@ -6,7 +6,7 @@ use std::net::{SocketAddr, ToSocketAddrs};
 use std::path::Path;
 use tokio::fs;
 use url::Url;
-
+use std::fmt;
 use crate::transport::{DEFAULT_KEEPALIVE_INTERVAL, DEFAULT_KEEPALIVE_SECS, DEFAULT_NODELAY};
 
 /// Default application-layer heartbeat interval in seconds.
@@ -440,6 +440,19 @@ impl Config {
 
         client.transport.validate(false)?;
         Ok(())
+    }
+}
+
+
+impl fmt::Display for TransportType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            TransportType::Tcp => write!(f, "tcp"),
+            TransportType::Tls => write!(f, "tls"),
+            TransportType::Noise => write!(f, "noise"),
+            TransportType::Websocket => write!(f, "websocket"),
+            TransportType::Quic => write!(f, "quic"),
+        }
     }
 }
 
