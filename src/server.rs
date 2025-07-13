@@ -8,7 +8,7 @@ use crate::protocol::{
     self, read_auth, read_hello, Ack, ControlChannelCmd, DataChannelCmd, Hello, UdpTraffic,
     HASH_WIDTH_IN_BYTES,
 };
-use crate::transport::{SocketOpts, TcpTransport, Transport};
+use crate::transport::{SocketOpts, TcpTransport, QuicTransport, Transport};
 use anyhow::{anyhow, bail, Context, Result};
 use backoff::backoff::Backoff;
 use backoff::ExponentialBackoff;
@@ -73,6 +73,15 @@ pub async fn run_server(
             }
             #[cfg(not(feature = "noise"))]
             crate::helper::feature_not_compile("noise")
+        }
+        TransportType::Quic => {
+            #[cfg(feature = "quic")]
+            {
+                let mut server = Server::<QuicTransport>::from(config).await?;
+                server.run(shutdown_rx, service_rx).await?;
+            }
+            #[cfg(not(feature = "tls"))]
+            crate::helper::feature_not_compile("tls")
         }
         TransportType::Websocket => {
             #[cfg(any(feature = "websocket-native-tls", feature = "websocket-rustls"))]
