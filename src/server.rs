@@ -572,11 +572,10 @@ fn tcp_listen_and_send(
 
 /// Runs a connection pool for TCP services.
 #[instrument(skip_all)]
+// src/server.rs
 async fn run_tcp_connection_pool<T: 'static + Transport>(
-    bind_addr: String,
-    mut data_ch_rx: mpsc::Receiver<T::Stream>,
-    data_ch_req_tx: mpsc::UnboundedSender<bool>,
-    mut shutdown_rx: broadcast::Receiver<bool>,
+    &self,
+    shutdown_rx: &mut broadcast::Receiver<bool>,
 ) -> Result<()> {
     let mut visitor_rx = tcp_listen_and_send(bind_addr, data_ch_req_tx.clone(), shutdown_rx);
 
