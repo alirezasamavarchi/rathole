@@ -15,6 +15,7 @@ use tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
 use tokio::net::{ToSocketAddrs, UdpSocket};
 use tokio::sync::Mutex;
 use tokio_native_tls::native_tls::Certificate;
+use rustls::pki_types::{CertificateDer, PrivateKeyDer};
 
 pub const ALPN_QUIC_TUNNEL: &[&[u8]] = &[b"qt"];
 pub const DEFAULT_MAX_IDLE_TIMEOUT_SECS: u64 = 10;
