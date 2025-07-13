@@ -51,6 +51,9 @@ pub enum TransportType {
     Noise,
     #[serde(rename = "websocket")]
     Websocket,
+    #[serde(rename = "quic")]
+    Quic,
+
 }
 
 /// Per service config
@@ -188,6 +191,7 @@ pub struct TransportConfig {
     pub tls: Option<TlsConfig>,
     pub noise: Option<NoiseConfig>,
     pub websocket: Option<WebsocketConfig>,
+    
 }
 
 fn default_heartbeat_timeout() -> u64 {
@@ -304,7 +308,7 @@ impl Config {
             })?;
         match config.transport_type {
             TransportType::Tcp => Ok(()),
-            TransportType::Tls => {
+            TransportType::Quic | TransportType::Tls => {
                 let tls_config = config
                     .tls
                     .as_ref()
