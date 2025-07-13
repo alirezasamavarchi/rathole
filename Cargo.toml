@@ -19,8 +19,9 @@ default = [
     "quic",
     "websocket-native-tls",
     "hot-reload",
+    rustls = ["dep:rustls"]
+
 ]
-rustls = ["dep:rustls"]
 
 # Run as a server
 server = []
