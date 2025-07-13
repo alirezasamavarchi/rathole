@@ -132,6 +132,7 @@ rustls = { version = "0.23", optional = true }
 p12 = { version = "0.6.3", optional = true }
 quinn = { version = "0.11", optional = true }
 native_tls = { version = "0.2", optional = true }
+webpki-roots = { version = "0.26", optional = true }
 
 [target.'cfg(target_env = "musl")'.dependencies]
 openssl = { version = "0.10", features = ["vendored"], optional = true }
