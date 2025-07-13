@@ -92,8 +92,8 @@ compile_error!("Only one of `native-tls` or `rustls` can be enabled");
 #[cfg(feature = "native-tls")]
 mod native_tls;
 #[cfg(feature = "native-tls")]
-use native_tls as tls;
-
+use native_tls as native_tls;
+use rustls as rustls;
 #[cfg(feature = "rustls")]
 mod rustls;
 #[cfg(feature = "rustls")]
