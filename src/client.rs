@@ -21,6 +21,8 @@ use tokio::sync::{broadcast, mpsc, oneshot, RwLock};
 use tokio::time::{self, Duration, Instant};
 use tracing::{debug, error, info, instrument, trace, warn, Instrument, Span};
 
+#[cfg(feature = "quic")]
+use crate::transport::QuicTransport;
 #[cfg(feature = "noise")]
 use crate::transport::NoiseTransport;
 #[cfg(any(feature = "native-tls", feature = "rustls"))]
@@ -61,6 +63,15 @@ pub async fn run_client(
             {
                 let mut client = Client::<NoiseTransport>::from(config).await?;
                 client.run(shutdown_rx, update_rx).await
+            }
+            #[cfg(not(feature = "noise"))]
+            crate::helper::feature_not_compile("noise")
+        }
+        TransportType::Quic => {
+            #[cfg(feature = "quic")]
+            {
+                let mut client = Client::<QuicTransport>::from(config).await?;
+                client.run(shutdown_rx, service_rx).await
             }
             #[cfg(not(feature = "noise"))]
             crate::helper::feature_not_compile("noise")
