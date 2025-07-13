@@ -32,6 +32,8 @@ use crate::transport::WebsocketTransport;
 
 use crate::constants::{run_control_chan_backoff, UDP_BUFFER_SIZE, UDP_SENDQ_SIZE, UDP_TIMEOUT};
 
+pub type ServiceDigest = protocol::Digest;
+pub type Nonce = protocol::Digest;
 /// Entry point for running the client with the specified transport type.
 pub async fn run_client(
     config: Config,
