@@ -13,7 +13,7 @@ use futures_core::stream::Stream;
 use futures_sink::Sink;
 use tokio::io::{AsyncBufRead, AsyncRead, AsyncWrite, ReadBuf};
 use tokio::net::{TcpListener, TcpStream, ToSocketAddrs};
-
+use tungstenite::http::Request;
 #[cfg(any(feature = "native-tls", feature = "rustls"))]
 use super::tls::get_tcpstream;
 #[cfg(any(feature = "native-tls", feature = "rustls"))]
@@ -23,6 +23,15 @@ use tokio_tungstenite::tungstenite::protocol::{Message, WebSocketConfig};
 use tokio_tungstenite::{accept_async_with_config, client_async_with_config, WebSocketStream};
 use tokio_util::io::StreamReader;
 use url::Url;
+
+use tungstenite::http::Request;
+
+let request = Request::builder()
+    .uri(url.as_str())
+    .header("Host", url.host_str().unwrap_or_default())
+    .body(())
+    .map_err(|e| anyhow!("Failed to build WebSocket request: {}", e))?;
+let (wsstream, _) = client_async_with_config(request, tstream, Some(self.conf)).await?;
 
 #[derive(Debug)]
 enum TransportStream {
