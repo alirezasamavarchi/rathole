@@ -19,8 +19,6 @@ default = [
     "quic",
     "websocket-native-tls",
     "hot-reload",
-    rustls = ["dep:rustls"]
-
 ]
 
 # Run as a server
@@ -136,7 +134,7 @@ rustls-pemfile = { version = "2.2.0", optional = true }
 rustls = { version = "0.23.29", default-features = false, features = ["quic"], optional = true }
 p12 = { version = "0.6.3", optional = true }
 quinn = { version = "0.11.8", optional = true}
-
+rustls = ["dep:rustls"]
 
 [target.'cfg(target_env = "musl")'.dependencies]
 openssl = { version = "0.10.73", features = ["vendored"], optional = true }
