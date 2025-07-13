@@ -53,7 +53,7 @@ impl Transport for TlsTransport {
             Some(path) => {
                 let ident = Identity::from_pkcs12(
                     &fs::read(path)?,
-                    config.pkcs12_password.as_ref().unwrap(),
+                    let password = config.pkcs12_password.as_ref().as_ref();
                 )
                 .with_context(|| "Failed to create identitiy")?;
                 Some(TlsAcceptor::from(
